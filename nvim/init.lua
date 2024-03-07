@@ -1,6 +1,5 @@
 --[[
 
-=====================================================================
 ==================== READ THIS BEFORE CONTINUING ====================
 =====================================================================
 ========                                    .-----.          ========
@@ -411,7 +410,7 @@ require('lazy').setup {
       vim.keymap.set('n', '<leader>/', function()
         -- You can pass additional configuration to telescope to change theme, layout, etc.
         builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-          winblend = 10,
+          -- winblend = 10,
           previewer = true,
         })
       end, { desc = '[/] Fuzzily search in current buffer' })
@@ -762,6 +761,14 @@ require('lazy').setup {
     lazy = false, -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other start plugins
     config = function()
+      require('tokyonight').setup {
+        transparent = true,
+        on_colors = function(colors)
+          colors.bg_statusline = nil
+        end,
+      }
+      vim.g.tokyonight_dark_float = false
+
       -- Load the colorscheme here
       vim.cmd.colorscheme 'tokyonight-night'
 
@@ -815,12 +822,14 @@ require('lazy').setup {
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
       local lualine = require 'lualine'
+      local colors = require('tokyonight.colors').setup()
       lualine.setup {
         options = {
           icons_enabled = true,
           theme = 'tokyonight',
-          component_separators = { left = '', right = '' },
-          section_separators = { left = '', right = '' },
+          -- component_separators = { left = '', right = '' },
+          component_separators = { left = '│', right = '│' },
+          section_separators = { left = '', right = '' },
           disabled_filetypes = {
             'NvimTree',
             statusline = {},
@@ -837,8 +846,26 @@ require('lazy').setup {
         },
         sections = {
           lualine_a = { 'mode' },
-          lualine_b = { 'branch', 'diff', 'diagnostics' },
-          lualine_c = { 'filename' },
+          lualine_b = {},
+          lualine_c = {
+            'branch',
+            {
+              'diff',
+              diff_color = {
+                added = {
+                  fg = colors.green,
+                },
+                modified = {
+                  fg = colors.blue,
+                },
+                removed = {
+                  fg = colors.red1,
+                },
+              },
+            },
+            'diagnostics',
+            'filename',
+          },
           lualine_x = { 'encoding', 'filetype' },
           lualine_y = { 'progress' },
           lualine_z = { 'location' },
@@ -978,11 +1005,11 @@ require('lazy').setup {
     },
   },
 
-  {
-    'lukas-reineke/headlines.nvim',
-    dependencies = 'nvim-treesitter/nvim-treesitter',
-    config = true, -- or `opts = {}`
-  },
+  -- {
+  --   'lukas-reineke/headlines.nvim',
+  --   dependencies = 'nvim-treesitter/nvim-treesitter',
+  --   config = true, -- or `opts = {}`
+  -- },
 
   {
     'nvim-tree/nvim-tree.lua',
@@ -1014,6 +1041,46 @@ require('lazy').setup {
     },
   },
 
+  -- {
+  --   'xiyaowong/transparent.nvim',
+  --   opts = {
+  --     groups = { -- table: default groups
+  --       'Normal',
+  --       'NormalNC',
+  --       'Comment',
+  --       'Constant',
+  --       'Special',
+  --       'Identifier',
+  --       'Statement',
+  --       'PreProc',
+  --       'Type',
+  --       'Underlined',
+  --       'Todo',
+  --       'String',
+  --       'Function',
+  --       'Conditional',
+  --       'Repeat',
+  --       'Operator',
+  --       'Structure',
+  --       'LineNr',
+  --       'NonText',
+  --       'SignColumn',
+  --       'CursorLine',
+  --       'CursorLineNr',
+  --       'StatusLine',
+  --       'StatusLineNC',
+  --       'EndOfBuffer',
+  --       'TelescopeNormal',
+  --       -- 'TelescopeBorder',
+  --     },
+  --     extra_groups = {
+  --       'NormalFloat', -- plugins which have float panel such as Lazy, Mason, LspInfo
+  --       'NvimTreeNormal', -- NvimTree
+  --     }, -- table: additional groups that should be cleared
+  --     exclude_groups = {}, -- table: groups you don't want to clear
+  --   },
+  -- },
+
   vim.keymap.set('n', '<leader>e', '<cmd>NvimTreeToggle<cr>', { desc = 'Toggle [E]xplorer', silent = true }),
 
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
@@ -1035,6 +1102,9 @@ require('lazy').setup {
   --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
   -- { import = 'custom.plugins' },
 }
+
+vim.api.nvim_set_hl(0, 'TelescopeNormal', { bg = 'none' })
+vim.api.nvim_set_hl(0, 'TelescopeBorder', { bg = 'none' })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

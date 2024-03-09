@@ -1,5 +1,4 @@
 --[[
-
 ==================== READ THIS BEFORE CONTINUING ====================
 =====================================================================
 ========                                    .-----.          ========
@@ -134,6 +133,8 @@ vim.opt.timeoutlen = 300
 -- Configure how new splits should be opened
 vim.opt.splitright = true
 vim.opt.splitbelow = true
+
+vim.opt.tabstop = 4
 
 -- Sets how neovim will display certain whitespace in the editor.
 --  See `:help 'list'`
@@ -441,7 +442,18 @@ require('lazy').setup {
 
       -- Useful status updates for LSP.
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', opts = {} },
+      {
+        'j-hui/fidget.nvim',
+        opts = {
+          notification = {
+            window = {
+              normal_hl = 'FidgetWindow',
+              winblend = 0,
+              align = 'bottom',
+            },
+          },
+        },
+      },
     },
     config = function()
       -- Brief Aside: **What is LSP?**
@@ -618,6 +630,12 @@ require('lazy').setup {
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format lua code
+        'gopls',
+        'eslint_d',
+        'lua_ls',
+        'prettierd',
+        'stylua',
+        'tsserver',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -651,6 +669,9 @@ require('lazy').setup {
         --
         -- You can use a sub-list to tell conform to run *until* a formatter
         -- is found.
+
+        go = { 'goimports', 'gofmt' },
+
         javascript = { { 'prettierd' } },
         typescript = { { 'prettierd' } },
         html = { { 'prettierd' } },
@@ -692,6 +713,7 @@ require('lazy').setup {
     },
     config = function()
       -- See `:help cmp`
+      --
       local cmp = require 'cmp'
       local luasnip = require 'luasnip'
       luasnip.config.setup {}
@@ -706,7 +728,6 @@ require('lazy').setup {
 
         -- For an understanding of why these mappings were
         -- chosen, you will need to read `:help ins-completion`
-        --
         -- No, but seriously. Please read `:help ins-completion`, it is really good!
         mapping = cmp.mapping.preset.insert {
           -- Select the [n]ext item
@@ -798,6 +819,16 @@ require('lazy').setup {
       -- - sd'   - [S]urround [D]elete [']quotes
       -- - sr)'  - [S]urround [R]eplace [)] [']
       require('mini.surround').setup()
+
+      -- require('mini.notify').setup{
+      --  lsp_progress = {
+      --     enable = false,
+      --   },
+      --   window = {
+      --     position = 'top',
+      --     winblend = 10,
+      --   },
+      -- }
 
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
@@ -1040,7 +1071,51 @@ require('lazy').setup {
       },
     },
   },
-
+  {
+    'folke/noice.nvim',
+    event = 'VeryLazy',
+    opts = {
+      -- add any options here
+    },
+    dependencies = {
+      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+      'MunifTanjim/nui.nvim',
+      -- OPTIONAL:
+      --   `nvim-notify` is only needed, if you want to use the notification view.
+      --   If not available, we use `mini` as the fallbacknoice
+      {
+        'rcarriga/nvim-notify',
+        opts = {
+          window = {
+            winblend = 0,
+          },
+        },
+      },
+    },
+    config = function()
+      require('noice').setup {
+        lsp = {
+          progress = {
+            enabled = false,
+          },
+          -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+          override = {
+            ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
+            ['vim.lsp.util.stylize_markdown'] = true,
+            ['cmp.entry.get_documentation'] = true, -- requires hrsh7th/nvim-cmp
+          },
+        },
+        -- you can enable a preset for easier configuration
+        presets = {
+          bottom_search = true, -- use a classic bottom cmdline for search
+          command_palette = true, -- position the cmdline and popupmenu together
+          long_message_to_split = true, -- long messages will be sent to a split
+          inc_rename = false, -- enables an input dialog for inc-rename.nvim
+          lsp_doc_border = true, -- add a border to hover docs and signature help
+        },
+      }
+    end,
+  },
   -- {
   --   'xiyaowong/transparent.nvim',
   --   opts = {
@@ -1105,6 +1180,12 @@ require('lazy').setup {
 
 vim.api.nvim_set_hl(0, 'TelescopeNormal', { bg = 'none' })
 vim.api.nvim_set_hl(0, 'TelescopeBorder', { bg = 'none' })
+-- vim.api.nvim_set_hl(0, 'Comment', { bg = 'none' })
+vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
+vim.api.nvim_set_hl(0, 'FloatBorder', { bg = 'none' })
+vim.api.nvim_set_hl(0, 'FloatTitle', { bg = 'none' })
+vim.api.nvim_set_hl(0, 'MiniNotifyNormal', { bg = 'none' })
+vim.api.nvim_set_hl(0, 'FidgetWindow', { bg = 'none' })
 
--- The line beneath this is called `modeline`. See `:help modeline`
+-- The lne beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

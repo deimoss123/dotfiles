@@ -140,7 +140,12 @@ vim.opt.tabstop = 4
 --  See `:help 'list'`
 --  and `:help 'listchars'`
 vim.opt.list = true
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+
+vim.opt.listchars = {
+  -- tab = '» ',
+  trail = '·',
+  nbsp = '␣',
+}
 
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = 'split'
@@ -410,10 +415,11 @@ require('lazy').setup {
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()
         -- You can pass additional configuration to telescope to change theme, layout, etc.
-        builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+        -- builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+        builtin.current_buffer_fuzzy_find {
           -- winblend = 10,
           previewer = true,
-        })
+        }
       end, { desc = '[/] Fuzzily search in current buffer' })
 
       -- Also possible to pass additional configuration options.
@@ -943,6 +949,7 @@ require('lazy').setup {
   },
   {
     'zbirenbaum/copilot.lua',
+    event = 'VeryLazy',
     config = function()
       require('copilot').setup {
         panel = {
@@ -965,7 +972,7 @@ require('lazy').setup {
           auto_trigger = true,
           debounce = 75,
           keymap = {
-            accept = '<C-j>',
+            accept = '<A-j>',
             accept_word = false,
             accept_line = false,
             next = '<M-]>',
@@ -1116,45 +1123,102 @@ require('lazy').setup {
       }
     end,
   },
-  -- {
-  --   'xiyaowong/transparent.nvim',
-  --   opts = {
-  --     groups = { -- table: default groups
-  --       'Normal',
-  --       'NormalNC',
-  --       'Comment',
-  --       'Constant',
-  --       'Special',
-  --       'Identifier',
-  --       'Statement',
-  --       'PreProc',
-  --       'Type',
-  --       'Underlined',
-  --       'Todo',
-  --       'String',
-  --       'Function',
-  --       'Conditional',
-  --       'Repeat',
-  --       'Operator',
-  --       'Structure',
-  --       'LineNr',
-  --       'NonText',
-  --       'SignColumn',
-  --       'CursorLine',
-  --       'CursorLineNr',
-  --       'StatusLine',
-  --       'StatusLineNC',
-  --       'EndOfBuffer',
-  --       'TelescopeNormal',
-  --       -- 'TelescopeBorder',
-  --     },
-  --     extra_groups = {
-  --       'NormalFloat', -- plugins which have float panel such as Lazy, Mason, LspInfo
-  --       'NvimTreeNormal', -- NvimTree
-  --     }, -- table: additional groups that should be cleared
-  --     exclude_groups = {}, -- table: groups you don't want to clear
-  --   },
-  -- },
+
+  {
+    'ThePrimeagen/vim-be-good',
+    event = 'VeryLazy',
+  },
+
+  {
+    'NvChad/nvim-colorizer.lua',
+    opts = {
+      filetypes = { '*' },
+      user_default_options = {
+        RGB = false, -- #RGB hex codes
+        RRGGBB = true, -- #RRGGBB hex codes
+        names = false, -- "Name" codes like Blue or blue
+        RRGGBBAA = false, -- #RRGGBBAA hex codes
+        AARRGGBB = false, -- 0xAARRGGBB hex codes
+        rgb_fn = false, -- CSS rgb() and rgba() functions
+        hsl_fn = false, -- CSS hsl() and hsla() functions
+        css = true, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
+        css_fn = false, -- Enable all CSS *functions*: rgb_fn, hsl_fn
+        -- Available modes for `mode`: foreground, background,  virtualtext
+        mode = 'background', -- Set the display mode.
+        -- Available methods are false / true / "normal" / "lsp" / "both"
+        -- True is same as normal
+        tailwind = false, -- Enable tailwind colors
+        -- parsers can contain values used in |user_default_options|
+        sass = { enable = false, parsers = { 'css' } }, -- Enable sass colors
+        virtualtext = '■',
+        -- update color values even if buffer is not focused
+        -- example use: cmp_menu, cmp_docs
+        always_update = false,
+      },
+      -- all the sub-options of filetypes apply to buftypes
+      buftypes = {},
+    },
+  },
+
+  {
+    'aserowy/tmux.nvim',
+    opts = {
+      copy_sync = {
+        -- enables copy sync. by default, all registers are synchronized.
+        -- to control which registers are synced, see the `sync_*` options.
+        enable = true,
+
+        -- ignore specific tmux buffers e.g. buffer0 = true to ignore the
+        -- first buffer or named_buffer_name = true to ignore a named tmux
+        -- buffer with name named_buffer_name :)
+        ignore_buffers = { empty = false },
+
+        -- TMUX >= 3.2: all yanks (and deletes) will get redirected to system
+        -- clipboard by tmux
+        redirect_to_clipboard = false,
+
+        -- offset controls where register sync starts
+        -- e.g. offset 2 lets registers 0 and 1 untouched
+        register_offset = 0,
+
+        -- overwrites vim.g.clipboard to redirect * and + to the system
+        -- clipboard using tmux. If you sync your system clipboard without tmux,
+        -- disable this option!
+        sync_clipboard = false,
+
+        -- synchronizes registers *, +, unnamed, and 0 till 9 with tmux buffers.
+        sync_registers = true,
+
+        -- syncs deletes with tmux clipboard as well, it is adviced to
+        -- do so. Nvim does not allow syncing registers 0 and 1 without
+        -- overwriting the unnamed register. Thus, ddp would not be possible.
+        sync_deletes = true,
+
+        -- syncs the unnamed register with the first buffer entry from tmux.
+        sync_unnamed = true,
+      },
+      navigation = {
+        -- cycles to opposite pane while navigating into the border
+        cycle_navigation = true,
+
+        -- enables default keybindings (C-hjkl) for normal mode
+        enable_default_keybindings = true,
+
+        -- prevents unzoom tmux when navigating beyond vim border
+        persist_zoom = false,
+      },
+      resize = {
+        -- enables default keybindings (A-hjkl) for normal mode
+        enable_default_keybindings = true,
+
+        -- sets resize steps for x axis
+        resize_step_x = 1,
+
+        -- sets resize steps for y axis
+        resize_step_y = 1,
+      },
+    },
+  },
 
   vim.keymap.set('n', '<leader>e', '<cmd>NvimTreeToggle<cr>', { desc = 'Toggle [E]xplorer', silent = true }),
 

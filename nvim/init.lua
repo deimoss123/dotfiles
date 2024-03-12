@@ -126,6 +126,8 @@ vim.opt.smartcase = true
 -- Keep signcolumn on by default
 vim.opt.signcolumn = 'yes'
 
+vim.opt.foldcolumn = '0'
+
 -- Decrease update time
 vim.opt.updatetime = 250
 vim.opt.timeoutlen = 300
@@ -135,6 +137,7 @@ vim.opt.splitright = true
 vim.opt.splitbelow = true
 
 vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
 
 -- Sets how neovim will display certain whitespace in the editor.
 --  See `:help 'list'`
@@ -452,6 +455,7 @@ require('lazy').setup {
         'j-hui/fidget.nvim',
         opts = {
           notification = {
+            override_vim_notify = false,
             window = {
               normal_hl = 'FidgetWindow',
               winblend = 0,
@@ -640,7 +644,6 @@ require('lazy').setup {
         'eslint_d',
         'lua_ls',
         'prettierd',
-        'stylua',
         'tsserver',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
@@ -826,13 +829,13 @@ require('lazy').setup {
       -- - sr)'  - [S]urround [R]eplace [)] [']
       require('mini.surround').setup()
 
-      -- require('mini.notify').setup{
-      --  lsp_progress = {
+      -- require('mini.notify').setup {
+      --   lsp_progress = {
       --     enable = false,
       --   },
       --   window = {
-      --     position = 'top',
-      --     winblend = 10,
+      --     -- position = 'top',
+      --     -- winblend = 100,
       --   },
       -- }
 
@@ -903,7 +906,7 @@ require('lazy').setup {
             'diagnostics',
             'filename',
           },
-          lualine_x = { 'encoding', 'filetype' },
+          lualine_x = { 'filetype' },
           lualine_y = { 'progress' },
           lualine_z = { 'location' },
         },
@@ -1059,10 +1062,11 @@ require('lazy').setup {
         sorter = 'case_sensitive',
       },
       view = {
+        signcolumn = 'no',
         width = {
           min = 30,
           max = -1,
-          padding = 1,
+          padding = 0,
         },
       },
       renderer = {
@@ -1075,6 +1079,14 @@ require('lazy').setup {
       },
       update_focused_file = {
         enable = true,
+      },
+      actions = {
+        open_file = {
+          quit_on_open = true,
+        },
+        change_dir = {
+          enable = false,
+        },
       },
     },
   },
@@ -1093,9 +1105,12 @@ require('lazy').setup {
       {
         'rcarriga/nvim-notify',
         opts = {
-          window = {
-            winblend = 0,
-          },
+          render = 'wrapped-compact',
+          max_width = 40,
+          stages = 'static',
+          -- window = {
+          --   winblend = 100,
+          -- },
         },
       },
     },
@@ -1120,7 +1135,11 @@ require('lazy').setup {
           inc_rename = false, -- enables an input dialog for inc-rename.nvim
           lsp_doc_border = true, -- add a border to hover docs and signature help
         },
+        -- messages = {
+        --   enabled = false,
+        -- },
       }
+      -- vim.g.mininotify_disable = true
     end,
   },
 
@@ -1187,7 +1206,7 @@ require('lazy').setup {
         sync_clipboard = false,
 
         -- synchronizes registers *, +, unnamed, and 0 till 9 with tmux buffers.
-        sync_registers = true,
+        sync_registers = false,
 
         -- syncs deletes with tmux clipboard as well, it is adviced to
         -- do so. Nvim does not allow syncing registers 0 and 1 without
@@ -1246,10 +1265,22 @@ vim.api.nvim_set_hl(0, 'TelescopeNormal', { bg = 'none' })
 vim.api.nvim_set_hl(0, 'TelescopeBorder', { bg = 'none' })
 -- vim.api.nvim_set_hl(0, 'Comment', { bg = 'none' })
 vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
-vim.api.nvim_set_hl(0, 'FloatBorder', { bg = 'none' })
-vim.api.nvim_set_hl(0, 'FloatTitle', { bg = 'none' })
+vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+-- vim.api.nvim_set_hl(0, 'NormalNC', { bg = 'none' })
+vim.api.nvim_set_hl(0, 'NormalSB', { bg = 'none' })
+vim.api.nvim_set_hl(0, 'NvimTreeNormal', { bg = 'none' })
+vim.api.nvim_set_hl(0, 'NvimTreeNormalNC', { bg = 'none' })
+-- vim.api.nvim_set_hl(0, 'FloatBorder', { bg = 'none' })
+-- vim.api.nvim_set_hl(0, 'FloatTitle', { bg = 'none' })
+
 vim.api.nvim_set_hl(0, 'MiniNotifyNormal', { bg = 'none' })
+vim.api.nvim_set_hl(0, 'MiniNotifyBorder', { bg = 'none' })
+vim.api.nvim_set_hl(0, 'MiniNotifyTitle', { bg = 'none' })
+
 vim.api.nvim_set_hl(0, 'FidgetWindow', { bg = 'none' })
+
+vim.api.nvim_set_hl(0, 'NvimTreeWinSeparator', { bg = 'none', fg = '#15161e' })
 
 -- The lne beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+--

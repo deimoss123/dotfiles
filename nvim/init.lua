@@ -169,8 +169,12 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
+vim.keymap.set('n', '<leader>se', vim.diagnostic.open_float, { desc = '[S]how diagnostic [E]rror messages' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+
+-- copilot
+vim.keymap.set('n', '<leader>ce', '<cmd>Copilot enable<CR>', { desc = '[C]opilot [E]nable' })
+vim.keymap.set('n', '<leader>cd', '<cmd>Copilot disable<CR>', { desc = '[C]opilot [D]isable' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -863,12 +867,31 @@ require('lazy').setup {
     config = function()
       local lualine = require 'lualine'
       local colors = require('tokyonight.colors').setup()
+
+      local function copilot_component()
+        if require('copilot.client').is_disabled() == true then
+          return ''
+        else
+          return ''
+        end
+      end
+
+      local function copilot_component_color()
+        if require('copilot.client').is_disabled() == true then
+          return { fg = colors.comment }
+        else
+          return { fg = colors.fg }
+        end
+      end
+
+      local component_seperator = '│'
+
       lualine.setup {
         options = {
           icons_enabled = true,
           theme = 'tokyonight',
           -- component_separators = { left = '', right = '' },
-          component_separators = { left = '│', right = '│' },
+          component_separators = { left = component_seperator, right = component_seperator },
           section_separators = { left = '', right = '' },
           disabled_filetypes = {
             'NvimTree',
@@ -904,9 +927,24 @@ require('lazy').setup {
               },
             },
             'diagnostics',
-            'filename',
+            {
+              'filename',
+              symbols = {
+                modified = '[Unsaved]', -- Text to show when the file is modified.
+                readonly = '[-]', -- Text to show when the file is non-modifiable or readonly.
+                unnamed = '[No Name]', -- Text to show for unnamed buffers.
+                newfile = '[New]', -- Text to show for newly created file before first write
+              },
+            },
           },
-          lualine_x = { 'filetype' },
+          lualine_x = {
+            {
+              copilot_component,
+              color = copilot_component_color,
+              -- separator = component_seperator,
+            },
+            'filetype',
+          },
           lualine_y = { 'progress' },
           lualine_z = { 'location' },
         },

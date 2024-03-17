@@ -230,6 +230,9 @@ vim.keymap.set('v', '<leader>d', '"_d', opts)
 vim.keymap.set('v', '>', '>gv', opts)
 vim.keymap.set('v', '<', '<gv', opts)
 
+-- filetypes
+vim.filetype.add { pattern = { ['.*/hypr/.*%.conf'] = 'hyprlang' } }
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 

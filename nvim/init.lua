@@ -1295,8 +1295,21 @@ require('lazy').setup {
     cmd = { 'TSJToggle', 'TSJSplit', 'TSJJoin' },
     opts = { use_default_keymaps = false },
   },
+  {
+    'https://github.com/dstein64/vim-startuptime',
+  },
+  {
+    'NeogitOrg/neogit',
+    dependencies = {
+      'nvim-lua/plenary.nvim', -- required
+      'sindrets/diffview.nvim', -- optional - Diff integration
 
-  vim.keymap.set('n', '<leader>e', '<cmd>NvimTreeToggle<cr>', { desc = 'Toggle [E]xplorer', silent = true }),
+      -- Only one of these is needed, not both.
+      'nvim-telescope/telescope.nvim', -- optional
+      'ibhagwan/fzf-lua', -- optional
+    },
+    config = true,
+  },
 
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
@@ -1317,6 +1330,8 @@ require('lazy').setup {
   --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
   -- { import = 'custom.plugins' },
 }
+
+vim.keymap.set('n', '<leader>e', '<cmd>NvimTreeToggle<cr>', { desc = 'Toggle [E]xplorer', silent = true })
 
 vim.api.nvim_set_hl(0, 'TelescopeNormal', { bg = 'none' })
 vim.api.nvim_set_hl(0, 'TelescopeBorder', { bg = 'none' })

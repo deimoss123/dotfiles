@@ -1338,6 +1338,7 @@ require('lazy').setup {
 }
 
 vim.keymap.set('n', '<leader>e', '<cmd>NvimTreeToggle<cr>', { desc = 'Toggle [E]xplorer', silent = true })
+vim.keymap.set('n', '<leader>g', '<cmd>Neogit kind=auto<cr>', { desc = 'Open Neo[g]it panel', silent = true })
 
 vim.api.nvim_set_hl(0, 'TelescopeNormal', { bg = 'none' })
 vim.api.nvim_set_hl(0, 'TelescopeBorder', { bg = 'none' })

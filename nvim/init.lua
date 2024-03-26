@@ -346,6 +346,28 @@ require('lazy').setup {
   --
   -- Use the `dependencies` key to specify the dependencies of a particular plugin
 
+  {
+    'nvim-tree/nvim-web-devicons',
+    opts = {
+      override_by_filename = {
+        ['go.mod'] = {
+          icon = '󰟓',
+          name = 'gomod',
+        },
+        ['go.sum'] = {
+          icon = '󰟓',
+          name = 'gosum',
+        },
+      },
+      override_by_extension = {
+        ['go'] = {
+          icon = '󰟓',
+          color = '#00aed9',
+          name = 'go',
+        },
+      },
+    },
+  },
   { -- Fuzzy Finder (files, lsp, etc)
     'nvim-telescope/telescope.nvim',
     event = 'VimEnter',
@@ -696,6 +718,7 @@ require('lazy').setup {
 
         javascript = { { 'prettierd' } },
         typescript = { { 'prettierd' } },
+        json = { { 'prettierd' } },
         html = { { 'prettierd' } },
         css = { { 'prettierd' } },
       },

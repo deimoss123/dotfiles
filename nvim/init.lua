@@ -1095,6 +1095,8 @@ require('lazy').setup {
     event = 'VeryLazy',
   },
 
+  { 'mbbill/undotree' },
+
   {
     'NvChad/nvim-colorizer.lua',
     opts = {
@@ -1232,6 +1234,7 @@ require('lazy').setup {
   --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
   -- { import = 'custom.plugins' },
 }
+vim.keymap.set('n', '<leader>u', '<cmd>UndotreeToggle<cr><cmd>UndotreeFocus<cr>')
 
 vim.keymap.set('n', '<leader>e', '<cmd>NvimTreeToggle<cr>', { desc = 'Toggle [E]xplorer', silent = true })
 vim.keymap.set('n', '<leader>g', '<cmd>Neogit kind=auto<cr>', { desc = 'Open Neo[g]it panel', silent = true })

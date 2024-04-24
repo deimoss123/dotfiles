@@ -276,6 +276,11 @@ require('lazy').setup {
           color = '#00aed9',
           name = 'go',
         },
+        ['astro'] = {
+          icon = '',
+          color = '#FF6209',
+          name = 'astro',
+        },
       },
     },
   },

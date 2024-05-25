@@ -143,6 +143,11 @@ vim.keymap.set('v', '<', '<gv', opts)
 
 -- filetypes
 vim.filetype.add { pattern = { ['.*/hypr/.*%.conf'] = 'hyprlang' } }
+vim.filetype.add {
+  extension = {
+    mdx = 'mdx',
+  },
+}
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -275,11 +280,6 @@ require('lazy').setup {
           icon = '󰟓',
           color = '#00aed9',
           name = 'go',
-        },
-        ['astro'] = {
-          icon = '',
-          color = '#FF6209',
-          name = 'astro',
         },
       },
     },
@@ -511,6 +511,14 @@ require('lazy').setup {
         -- But for many setups, the LSP (`tsserver`) will work just fine
         -- tsserver = {},
         --
+        emmet_ls = {
+          capabilities = capabilities,
+          filetypes = {
+            'html',
+            'css',
+            'php',
+          },
+        },
 
         lua_ls = {
           -- cmd = {...},
@@ -580,10 +588,11 @@ require('lazy').setup {
     'stevearc/conform.nvim',
     opts = {
       notify_on_error = false,
-      format_on_save = {
-        timeout_ms = 500,
-        lsp_fallback = true,
-      },
+      -- format_on_save = {
+      --   timeout_ms = 500,
+      --   lsp_fallback = true,
+      -- },
+      format_on_save = false,
       formatters_by_ft = {
         lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially
@@ -594,9 +603,11 @@ require('lazy').setup {
 
         go = { 'goimports', 'gofmt' },
 
+        astro = { { 'prettierd' } },
         javascript = { { 'prettierd' } },
         typescript = { { 'prettierd' } },
         json = { { 'prettierd' } },
+        jsonc = { { 'prettierd' } },
         html = { { 'prettierd' } },
         css = { { 'prettierd' } },
       },
@@ -1219,6 +1230,22 @@ require('lazy').setup {
     },
     config = true,
   },
+  {
+      "ThePrimeagen/harpoon",
+      branch = "harpoon2",
+      dependencies = { "nvim-lua/plenary.nvim" },
+      config = function()
+        local harpoon = require("harpoon").setup()
+
+        vim.keymap.set("n", "<leader>a", function() harpoon:list():add() end)
+        vim.keymap.set("n", "<leader>h", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+
+        vim.keymap.set("n", "<leader>1", function() harpoon:list():select(1) end)
+        vim.keymap.set("n", "<leader>2", function() harpoon:list():select(2) end)
+        vim.keymap.set("n", "<leader>3", function() harpoon:list():select(3) end)
+        vim.keymap.set("n", "<leader>4", function() harpoon:list():select(4) end)
+      end,
+  }
 
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
@@ -1239,6 +1266,7 @@ require('lazy').setup {
   --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
   -- { import = 'custom.plugins' },
 }
+
 vim.keymap.set('n', '<leader>u', '<cmd>UndotreeToggle<cr><cmd>UndotreeFocus<cr>')
 
 vim.keymap.set('n', '<leader>e', '<cmd>NvimTreeToggle<cr>', { desc = 'Toggle [E]xplorer', silent = true })

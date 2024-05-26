@@ -47,7 +47,14 @@ button {
   color: #7aa2f7;
 }
 
-#clock,
+#clock {
+
+  padding-left: 24px;
+  padding-right: 8px;
+  color: #c0caf5;
+  background: none;
+}
+
 #battery,
 #cpu,
 #memory,
@@ -66,7 +73,7 @@ button {
 #window,
 #custom-notification,
 #mpd {
-  padding-left: 24px;
+  padding-left: 16px;
   color: #c0caf5;
   background-color: #1a1b26;
   background: none;

@@ -1,0 +1,94 @@
+* {
+  font-family: "Inter", FontAwesome, "JetBrainsMonoNL Nerd Font", Roboto,
+    Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+window#waybar {
+  background: none;
+  /* background-color: #ff0000; */
+}
+
+button {
+  border: none;
+  border-radius: 0;
+}
+
+#workspaces button:hover {
+  box-shadow: inherit;
+  text-shadow: inherit;
+  background: none;
+  border: none;
+}
+
+#workspaces {
+  background: none;
+}
+
+#workspaces button {
+  padding: 0 4px;
+  color: #c0caf5;
+}
+
+#workspaces button.empty {
+  color: #414868;
+}
+
+#workspaces button.urgent {
+  color: #f7768e;
+}
+
+#workspaces button.focused {
+  color: #7aa2f7;
+}
+
+#workspaces button.active {
+  color: #7aa2f7;
+}
+
+#clock,
+#battery,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#backlight,
+#network,
+#pulseaudio,
+#wireplumber,
+#custom-media,
+#tray,
+#mode,
+#idle_inhibitor,
+#scratchpad,
+#bluetooth,
+#window,
+#custom-notification,
+#mpd {
+  padding-left: 24px;
+  color: #c0caf5;
+  background-color: #1a1b26;
+  background: none;
+}
+
+/* If workspaces is the leftmost module, omit left margin */
+.modules-left > widget:first-child > #workspaces {
+  /* margin-left: 6px; */
+}
+
+/* If workspaces is the rightmost module, omit right margin */
+.modules-right > widget:last-child > * {
+  margin-right: 6px;
+}
+
+#tray > .passive {
+  -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+  -gtk-icon-effect: highlight;
+  background-color: #f7768e;
+}
+
+

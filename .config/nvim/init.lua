@@ -517,6 +517,8 @@ require('lazy').setup {
             'html',
             'css',
             'php',
+            'typescriptreact',
+            'javascriptreact',
           },
         },
 
@@ -606,6 +608,8 @@ require('lazy').setup {
         astro = { { 'prettierd' } },
         javascript = { { 'prettierd' } },
         typescript = { { 'prettierd' } },
+        javascriptreact = { { 'prettierd' } },
+        typescriptreact = { { 'prettierd' } },
         json = { { 'prettierd' } },
         jsonc = { { 'prettierd' } },
         html = { { 'prettierd' } },
@@ -1231,21 +1235,33 @@ require('lazy').setup {
     config = true,
   },
   {
-      "ThePrimeagen/harpoon",
-      branch = "harpoon2",
-      dependencies = { "nvim-lua/plenary.nvim" },
-      config = function()
-        local harpoon = require("harpoon").setup()
+    'ThePrimeagen/harpoon',
+    branch = 'harpoon2',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    config = function()
+      local harpoon = require('harpoon').setup()
 
-        vim.keymap.set("n", "<leader>a", function() harpoon:list():add() end)
-        vim.keymap.set("n", "<leader>h", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+      vim.keymap.set('n', '<leader>a', function()
+        harpoon:list():add()
+      end)
+      vim.keymap.set('n', '<leader>h', function()
+        harpoon.ui:toggle_quick_menu(harpoon:list())
+      end)
 
-        vim.keymap.set("n", "<leader>1", function() harpoon:list():select(1) end)
-        vim.keymap.set("n", "<leader>2", function() harpoon:list():select(2) end)
-        vim.keymap.set("n", "<leader>3", function() harpoon:list():select(3) end)
-        vim.keymap.set("n", "<leader>4", function() harpoon:list():select(4) end)
-      end,
-  }
+      vim.keymap.set('n', '<leader>1', function()
+        harpoon:list():select(1)
+      end)
+      vim.keymap.set('n', '<leader>2', function()
+        harpoon:list():select(2)
+      end)
+      vim.keymap.set('n', '<leader>3', function()
+        harpoon:list():select(3)
+      end)
+      vim.keymap.set('n', '<leader>4', function()
+        harpoon:list():select(4)
+      end)
+    end,
+  },
 
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and

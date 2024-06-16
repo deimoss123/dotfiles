@@ -49,8 +49,8 @@ button {
 
 #clock {
 
-  padding-left: 24px;
-  padding-right: 8px;
+  /* padding-left: 24px; */
+  /* padding-right: 8px; */
   color: #c0caf5;
   background: none;
 }
@@ -77,6 +77,9 @@ button {
   color: #c0caf5;
   background-color: #1a1b26;
   background: none;
+}
+#custom-notification {
+  padding-right: 4px;
 }
 
 /* If workspaces is the leftmost module, omit left margin */

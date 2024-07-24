@@ -1288,6 +1288,10 @@ vim.keymap.set('n', '<leader>u', '<cmd>UndotreeToggle<cr><cmd>UndotreeFocus<cr>'
 vim.keymap.set('n', '<leader>e', '<cmd>NvimTreeToggle<cr>', { desc = 'Toggle [E]xplorer', silent = true })
 vim.keymap.set('n', '<leader>g', '<cmd>Neogit kind=auto<cr>', { desc = 'Open Neo[g]it panel', silent = true })
 
+vim.keymap.set('n', '<leader>f', function()
+  require('conform').format()
+end)
+
 vim.api.nvim_set_hl(0, 'TelescopeNormal', { bg = 'none' })
 vim.api.nvim_set_hl(0, 'TelescopeBorder', { bg = 'none' })
 -- vim.api.nvim_set_hl(0, 'Comment', { bg = 'none' })

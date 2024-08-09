@@ -614,6 +614,7 @@ require('lazy').setup {
         jsonc = { { 'prettierd' } },
         html = { { 'prettierd' } },
         css = { { 'prettierd' } },
+        svelte = { { 'prettierd' } },
       },
     },
   },

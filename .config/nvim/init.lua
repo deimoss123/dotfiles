@@ -1058,58 +1058,58 @@ require('lazy').setup {
       },
     },
   },
-  {
-    'folke/noice.nvim',
-    event = 'VeryLazy',
-    opts = {
-      -- add any options here
-    },
-    dependencies = {
-      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-      'MunifTanjim/nui.nvim',
-      -- OPTIONAL:
-      --   `nvim-notify` is only needed, if you want to use the notification view.
-      --   If not available, we use `mini` as the fallbacknoice
-      {
-        'rcarriga/nvim-notify',
-        opts = {
-          render = 'wrapped-compact',
-          max_width = 40,
-          stages = 'static',
-          -- window = {
-          --   winblend = 100,
-          -- },
-        },
-      },
-    },
-    config = function()
-      require('noice').setup {
-        lsp = {
-          progress = {
-            enabled = false,
-          },
-          -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
-          override = {
-            ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
-            ['vim.lsp.util.stylize_markdown'] = true,
-            ['cmp.entry.get_documentation'] = true, -- requires hrsh7th/nvim-cmp
-          },
-        },
-        -- you can enable a preset for easier configuration
-        presets = {
-          bottom_search = true, -- use a classic bottom cmdline for search
-          command_palette = true, -- position the cmdline and popupmenu together
-          long_message_to_split = true, -- long messages will be sent to a split
-          inc_rename = false, -- enables an input dialog for inc-rename.nvim
-          lsp_doc_border = true, -- add a border to hover docs and signature help
-        },
-        -- messages = {
-        --   enabled = false,
-        -- },
-      }
-      -- vim.g.mininotify_disable = true
-    end,
-  },
+  -- {
+  --   'folke/noice.nvim',
+  --   event = 'VeryLazy',
+  --   opts = {
+  --     -- add any options here
+  --   },
+  --   dependencies = {
+  --     -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+  --     'MunifTanjim/nui.nvim',
+  --     -- OPTIONAL:
+  --     --   `nvim-notify` is only needed, if you want to use the notification view.
+  --     --   If not available, we use `mini` as the fallbacknoice
+  --     {
+  --       'rcarriga/nvim-notify',
+  --       opts = {
+  --         render = 'wrapped-compact',
+  --         max_width = 40,
+  --         stages = 'static',
+  --         -- window = {
+  --         --   winblend = 100,
+  --         -- },
+  --       },
+  --     },
+  --   },
+  --   config = function()
+  --     require('noice').setup {
+  --       lsp = {
+  --         progress = {
+  --           enabled = false,
+  --         },
+  --         -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+  --         override = {
+  --           ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
+  --           ['vim.lsp.util.stylize_markdown'] = true,
+  --           ['cmp.entry.get_documentation'] = true, -- requires hrsh7th/nvim-cmp
+  --         },
+  --       },
+  --       -- you can enable a preset for easier configuration
+  --       presets = {
+  --         bottom_search = true, -- use a classic bottom cmdline for search
+  --         command_palette = true, -- position the cmdline and popupmenu together
+  --         long_message_to_split = true, -- long messages will be sent to a split
+  --         inc_rename = false, -- enables an input dialog for inc-rename.nvim
+  --         lsp_doc_border = true, -- add a border to hover docs and signature help
+  --       },
+  --       -- messages = {
+  --       --   enabled = false,
+  --       -- },
+  --     }
+  --     -- vim.g.mininotify_disable = true
+  --   end,
+  -- },
 
   {
     'ThePrimeagen/vim-be-good',
@@ -1261,9 +1261,62 @@ require('lazy').setup {
       vim.keymap.set('n', '<leader>4', function()
         harpoon:list():select(4)
       end)
+      vim.keymap.set('n', '<leader>5', function()
+        harpoon:list():select(5)
+      end)
+      vim.keymap.set('n', '<leader>6', function()
+        harpoon:list():select(6)
+      end)
+      vim.keymap.set('n', '<leader>7', function()
+        harpoon:list():select(7)
+      end)
+      vim.keymap.set('n', '<leader>8', function()
+        harpoon:list():select(8)
+      end)
+      vim.keymap.set('n', '<leader>9', function()
+        harpoon:list():select(9)
+      end)
     end,
   },
 
+  -- {
+  --   '3rd/image.nvim',
+  --   opts = {
+  --     backend = 'kitty',
+  --     integrations = {
+  --       markdown = {
+  --         enabled = true,
+  --         clear_in_insert_mode = false,
+  --         download_remote_images = true,
+  --         only_render_image_at_cursor = false,
+  --         filetypes = { 'markdown', 'vimwiki' }, -- markdown extensions (ie. quarto) can go here
+  --       },
+  --       neorg = {
+  --         enabled = true,
+  --         clear_in_insert_mode = false,
+  --         download_remote_images = true,
+  --         only_render_image_at_cursor = false,
+  --         filetypes = { 'norg' },
+  --       },
+  --       html = {
+  --         enabled = false,
+  --       },
+  --       css = {
+  --         enabled = false,
+  --       },
+  --     },
+  --     max_width = nil,
+  --     max_height = nil,
+  --     max_width_window_percentage = nil,
+  --     max_height_window_percentage = 50,
+  --     window_overlap_clear_enabled = false, -- toggles images when windows are overlapped
+  --     window_overlap_clear_ft_ignore = { 'cmp_menu', 'cmp_docs', '' },
+  --     editor_only_render_when_focused = false, -- auto show/hide images when the editor gains/looses focus
+  --     tmux_show_only_in_active_window = false, -- auto show/hide images in the correct Tmux window (needs visual-activity off)
+  --     hijack_file_patterns = { '*.png', '*.jpg', '*.jpeg', '*.gif', '*.webp', '*.avif' }, -- render image files as images when opened
+  --   },
+  -- },
+  --
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
   -- put them in the right spots if you want.
@@ -1295,6 +1348,9 @@ end)
 
 vim.api.nvim_set_hl(0, 'TelescopeNormal', { bg = 'none' })
 vim.api.nvim_set_hl(0, 'TelescopeBorder', { bg = 'none' })
+vim.api.nvim_set_hl(0, 'TelescopePromptBorder', { bg = 'none' })
+vim.api.nvim_set_hl(0, 'TelescopePromptTitle', { bg = 'none' })
+
 -- vim.api.nvim_set_hl(0, 'Comment', { bg = 'none' })
 vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
 vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })

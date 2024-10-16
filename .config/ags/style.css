@@ -1,0 +1,98 @@
+* {
+  font-family: "Inter", FontAwesome, "JetBrainsMonoNL Nerd Font", Roboto,
+    Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: #c0caf5;
+}
+
+window.bar {
+  /* font-size: 16px; */
+  background-color: transparent;
+  /* color: @theme_fg_color; */
+  /* height: 20px; */
+  /* padding-top: 40px; */
+}
+
+window {
+  /* padding-top: 10px; */
+}
+
+.workspaces {
+  /* padding-left: 4px; */
+  /* padding-right: 40px; */
+}
+
+.notification-label-circle {
+  color: #db4b4b;
+}
+
+button {
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: transparent;
+  border: none;
+}
+
+.ws-label {
+  margin: 0;
+  padding: 0;
+  /* background-color: red; */
+  /* font-size: 16px; */
+  font-weight: bold;
+  font-size: 14px;
+
+  font-family: "JetBrainsMonoNL Nerd Font";
+}
+
+.ws-label-seperator {
+  /* margin-left: 4px; */
+  margin-right: -3px;
+  margin-left: -4px;
+  color: #495075;
+}
+
+.ws-btn {
+  /* border: 1px solid #495075; */
+  /* border: 1px solid transparent; */
+  /* border-radius: 4px; */
+}
+
+.ws-btn.focused {
+  /* border: 1px solid #495075; */
+  background-color: #495075;
+}
+
+.ws-btn.focused .ws-label-seperator {
+  color: #c0caf5;
+}
+
+.ws-icon-box {
+  /* margin-left: 4px; */
+}
+
+/* button:active { */
+/*   background-color: @theme_selected_bg_color; */
+/* } */
+/**/
+/* button:hover { */
+/*   border-bottom: 3px solid @theme_fg_color; */
+/* } */
+
+label {
+  font-weight: bold;
+}
+
+.client-title {
+  /* color: @theme_selected_bg_color; */
+  color: #c0caf5;
+}
+
+.notification {
+  color: yellow;
+}
+
+levelbar block,
+highlight {
+  min-height: 10px;
+}

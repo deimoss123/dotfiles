@@ -137,6 +137,7 @@ function notificationLabels({ text, alt }) {
 
 function Notifications() {
   return Widget.Button({
+    class_name: "notification-label-btn",
     on_primary_click: () => Utils.exec("swaync-client -t -sw"),
     on_secondary_click: () => Utils.exec("swaync-client -d -sw"),
     child: Widget.Box({
@@ -220,7 +221,7 @@ function SysTray() {
   );
 
   return Widget.Box({
-    spacing: 2,
+    spacing: 4,
     children: items,
   });
 }
@@ -253,10 +254,10 @@ function Bar(monitor = 0) {
     name: `ags-${monitor}`, // name has to be unique
     class_name: "bar",
     monitor,
-    margins: [0, 4, 4, 4], // [TOP, RIGHT, BOTTOM, LEFT]
+    // margins: [0, 4, 4, 4], // [TOP, RIGHT, BOTTOM, LEFT]
     anchor: ["bottom", "left", "right"],
     exclusivity: "exclusive",
-    heightRequest: 24,
+    heightRequest: 28,
     child: Widget.CenterBox({
       start_widget: Left(),
       center_widget: Center(),

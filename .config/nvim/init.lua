@@ -615,6 +615,7 @@ require('lazy').setup {
         html = { { 'prettierd' } },
         css = { { 'prettierd' } },
         svelte = { { 'prettierd' } },
+        sql = { 'sqlfmt' },
       },
     },
   },
@@ -711,31 +712,41 @@ require('lazy').setup {
       }
     end,
   },
-
-  { -- You can easily change to a different colorscheme.
-    -- Change the name of the colorscheme plugin below, and then
-    -- change the command in the config to whatever the name of that colorscheme is
-    --
-    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`
-    'folke/tokyonight.nvim',
-    lazy = false, -- make sure we load this during startup if it is your main colorscheme
-    priority = 1000, -- make sure to load this before all the other start plugins
-    config = function()
-      require('tokyonight').setup {
-        transparent = true,
-        on_colors = function(colors)
-          colors.bg_statusline = nil
-        end,
-      }
+  {
+    "ellisonleao/gruvbox.nvim",
+    priority = 1000,
+    config = true,
+    config = function () 
       vim.g.tokyonight_dark_float = false
 
       -- Load the colorscheme here
-      vim.cmd.colorscheme 'tokyonight-night'
 
-      -- You can configure highlights by doing something like
       vim.cmd.hi 'Comment gui=none'
+      vim.o.background = "dark" -- or "light" for light mode
+      vim.cmd.colorscheme 'gruvbox'
     end,
   },
+  
+  -- { 
+  --   'folke/tokyonight.nvim',
+  --   lazy = false, -- make sure we load this during startup if it is your main colorscheme
+  --   priority = 1000, -- make sure to load this before all the other start plugins
+  --   config = function()
+  --     require('tokyonight').setup {
+  --       transparent = true,
+  --       on_colors = function(colors)
+  --         colors.bg_statusline = nil
+  --       end,
+  --     }
+  --     vim.g.tokyonight_dark_float = false
+  --
+  --     -- Load the colorscheme here
+  --     vim.cmd.colorscheme 'tokyonight-night'
+  --
+  --     -- You can configure highlights by doing something like
+  --     vim.cmd.hi 'Comment gui=none'
+  --   end,
+  -- },
 
   { -- Highlight todo, notes, etc in comments
     'folke/todo-comments.nvim',
@@ -796,30 +807,30 @@ require('lazy').setup {
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
       local lualine = require 'lualine'
-      local colors = require('tokyonight.colors').setup()
+      -- local colors = require('gruvbox').colors
 
-      local function copilot_component()
-        if require('copilot.client').is_disabled() == true then
-          return ''
-        else
-          return ''
-        end
-      end
-
-      local function copilot_component_color()
-        if require('copilot.client').is_disabled() == true then
-          return { fg = colors.comment }
-        else
-          return { fg = colors.fg }
-        end
-      end
+      -- local function copilot_component()
+      --   if require('copilot.client').is_disabled() == true then
+      --     return ''
+      --   else
+      --     return ''
+      --   end
+      -- end
+      --
+      -- local function copilot_component_color()
+      --   if require('copilot.client').is_disabled() == true then
+      --     return { fg = colors.comment }
+      --   else
+      --     return { fg = colors.fg }
+      --   end
+      -- end
 
       local component_seperator = '│'
 
       lualine.setup {
         options = {
           icons_enabled = true,
-          theme = 'tokyonight',
+          theme = 'gruvbox',
           -- component_separators = { left = '', right = '' },
           component_separators = { left = component_seperator, right = component_seperator },
           section_separators = { left = '', right = '' },
@@ -842,20 +853,20 @@ require('lazy').setup {
           lualine_b = {},
           lualine_c = {
             'branch',
-            {
-              'diff',
-              diff_color = {
-                added = {
-                  fg = colors.green,
-                },
-                modified = {
-                  fg = colors.blue,
-                },
-                removed = {
-                  fg = colors.red1,
-                },
-              },
-            },
+            -- {
+            'diff',
+              -- diff_color = {
+              --   added = {
+              --     fg = colors.green,
+              --   },
+              --   modified = {
+              --     fg = colors.blue,
+              --   },
+              --   removed = {
+              --     fg = colors.red1,
+              --   },
+              -- },
+            -- },
             'diagnostics',
             {
               'filename',
@@ -868,11 +879,11 @@ require('lazy').setup {
             },
           },
           lualine_x = {
-            {
-              copilot_component,
-              color = copilot_component_color,
-              -- separator = component_seperator,
-            },
+            -- {
+            --   copilot_component,
+            --   color = copilot_component_color,
+            --   -- separator = component_seperator,
+            -- },
             'filetype',
           },
           lualine_y = { 'progress' },
@@ -1366,6 +1377,8 @@ vim.api.nvim_set_hl(0, 'MiniNotifyBorder', { bg = 'none' })
 vim.api.nvim_set_hl(0, 'MiniNotifyTitle', { bg = 'none' })
 
 vim.api.nvim_set_hl(0, 'FidgetWindow', { bg = 'none' })
+vim.api.nvim_set_hl(0, 'GitSignsCurrentLineBlame', { bg = 'none', fg = 'none' })
+vim.api.nvim_set_hl(0, 'SignColumn', { bg = 'none', fg = 'none' })
 
 vim.api.nvim_set_hl(0, 'NvimTreeWinSeparator', { bg = 'none', fg = '#15161e' })
 

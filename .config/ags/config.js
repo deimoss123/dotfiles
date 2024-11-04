@@ -17,8 +17,8 @@ function wsChildren(clients, workspace) {
   for (const c of filteredClients) {
     const foundApp = apps.find(
       (a) =>
-        a.desktop === `${c.initialClass}.desktop` ||
-        a.wm_class === c.initialClass.toLowerCase(),
+        a.desktop?.toLowerCase() === `${c.initialClass.toLowerCase()}.desktop` ||
+        a.wm_class?.toLowerCase() === c.initialClass.toLowerCase(),
     );
 
     if (foundApp) {

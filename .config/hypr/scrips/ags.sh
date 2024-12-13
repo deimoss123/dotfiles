@@ -1,5 +1,5 @@
 #!/bin/bash
 
-killall ags
+killall gjs
 
-ags &
+ags run &

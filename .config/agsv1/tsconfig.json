@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "ESnext",
+    "module": "ESnext",
+    "lib": [
+      "ESnext"
+    ],
+    "allowJs": true,
+    "checkJs": true,
+    "strict": true,
+    "noImplicitAny": false,
+    "baseUrl": ".",
+    "typeRoots": [
+      "./types"
+    ],
+    "skipLibCheck": true
+  }
+}

@@ -1,6 +1,7 @@
 {
   "ui": {
     "anchors": {
+      "bottom": true,
       "top": true
     },
     "window": {

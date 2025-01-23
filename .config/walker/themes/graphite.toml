@@ -58,7 +58,7 @@ y_align = 0
 wrap = true
 
 [ui.window.box.scroll.list]
-max_height = 600
+max_height = 400
 max_width = 400
 min_width = 400
 width = 400

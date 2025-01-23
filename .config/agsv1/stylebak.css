@@ -1,0 +1,109 @@
+window.bar * {
+  font-family: "Inter", FontAwesome, "JetBrainsMonoNL Nerd Font", Roboto,
+    Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  border: none;
+  outline: none;
+  color: #ebdbb2;
+}
+
+window.bar {
+  /* font-size: 16px; */
+  background-color: rgba(40, 40, 40, 0.9);
+  /* color: @theme_fg_color; */
+  /* height: 20px; */
+  /* padding-top: 40px; */
+}
+
+window {
+  /* padding-top: 10px; */
+}
+
+.workspaces {
+  /* padding-left: 4px; */
+  /* padding-right: 40px; */
+  margin-left: 8px;
+}
+
+.notification-label-btn {
+  margin-right: 8px;
+}
+
+.notification-label-circle {
+  color: #db4b4b;
+}
+
+button {
+  padding: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+  background-color: transparent;
+  border: none;
+  border-radius: 4;
+}
+
+.ws-label {
+  margin: 0;
+  padding: 0;
+  /* background-color: red; */
+  /* font-size: 16px; */
+  font-weight: bold;
+  font-size: 14px;
+
+  font-family: "JetBrainsMonoNL Nerd Font";
+}
+
+.ws-label-seperator {
+  /* margin-left: 4px; */
+  margin-right: -3px;
+  margin-left: -2px;
+  color: #665c54;
+}
+
+.ws-btn {
+  /* border: 1px solid #495075; */
+  /* border: 1px solid transparent; */
+  /* border-radius: 4px; */
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+.ws-btn.focused {
+  /* border: 1px solid #495075; */
+  background-color: #665c54;
+}
+
+.ws-btn.focused .ws-label-seperator {
+  color: #ebdbb2;
+}
+
+.ws-icon-box {
+  /* margin-left: 4px; */
+}
+
+/* button:active { */
+/*   background-color: @theme_selected_bg_color; */
+/* } */
+/**/
+/* button:hover { */
+/*   border-bottom: 3px solid @theme_fg_color; */
+/* } */
+
+label {
+  font-weight: bold;
+}
+
+.client-title {
+  /* color: @theme_selected_bg_color; */
+  color: #ebdbb2;
+}
+
+.notification {
+  color: yellow;
+}
+
+levelbar block,
+highlight {
+  min-height: 10px;
+}

@@ -1,3 +1,5 @@
+import GLib from "gi://GLib";
+
 const hyprland = await Service.import("hyprland");
 const audio = await Service.import("audio");
 const battery = await Service.import("battery");
@@ -8,16 +10,42 @@ const date = Variable("", {
   poll: [1000, 'date "+%d.%m.%Y  %H:%M"'],
 });
 
+const time = Variable(
+  {
+    day: "",
+    month: "",
+    year: "",
+    hour: "",
+    minute: "",
+  },
+  {
+    poll: [
+      1000,
+      () => {
+        const t = GLib.DateTime.new_now_local();
+        return {
+          day: (t.format("%d") ?? "").replaceAll("0", "O"),
+          month: (t.format("%m") ?? "").replaceAll("0", "O"),
+          year: (t.format("%y") ?? "").replaceAll("0", "O"),
+          hour: (t.format("%H") ?? "").replaceAll("0", "O"),
+          minute: (t.format("%M") ?? "").replaceAll("0", "O"),
+        };
+      },
+    ],
+  },
+);
+
 const apps = [...applications.list];
 
-function wsChildren(clients, workspace) {
+function WorkspaceChild(clients, workspace) {
   const wsApps = [];
   const filteredClients = clients.filter((c) => c.workspace.id === workspace);
 
   for (const c of filteredClients) {
     const foundApp = apps.find(
       (a) =>
-        a.desktop?.toLowerCase() === `${c.initialClass.toLowerCase()}.desktop` ||
+        a.desktop?.toLowerCase() ===
+          `${c.initialClass.toLowerCase()}.desktop` ||
         a.wm_class?.toLowerCase() === c.initialClass.toLowerCase(),
     );
 
@@ -38,18 +66,18 @@ function wsChildren(clients, workspace) {
 
   if (wsApps.length) {
     children.push(
-      Widget.Label({
-        label: `~`,
-        class_name: "ws-label-seperator",
-        xalign: 1,
-      }),
+      // Widget.Label({
+      //   label: `~`,
+      //   class_name: "ws-label-seperator",
+      //   xalign: 1,
+      // }),
       Widget.Box({
-        class_name: "ws-icon-box",
         spacing: 4,
+        vertical: true,
         children: wsApps.map((app) =>
           Widget.Icon({
             icon: app.icon_name || "",
-            size: 16,
+            size: 18,
           }),
         ),
       }),
@@ -72,16 +100,19 @@ function Workspaces() {
         .map(({ id }) => {
           return Widget.Button({
             on_clicked: () => hyprland.messageAsync(`dispatch workspace ${id}`),
-            class_name: `ws-btn ${activeId === id ? "focused" : ""}`,
+            class_name: `bar__ws_item ${activeId === id ? "focused" : ""}`,
             child: Widget.Box({
-              children: wsChildren(clients, id),
+              children: WorkspaceChild(clients, id),
               spacing: 8,
+              vertical: true,
+              css: "padding-bottom: 4px; padding-left: 1px;",
             }),
           });
         }),
   );
 
   return Widget.Box({
+    vertical: true,
     class_name: "workspaces",
     children: workspaces,
     spacing: 12,
@@ -95,10 +126,27 @@ function ClientTitle() {
   });
 }
 
-function Clock() {
-  return Widget.Label({
-    class_name: "clock",
-    label: date.bind(),
+function Time() {
+  return Widget.Box({
+    class_name: "bar__item bar__time",
+    vertical: true,
+    child: time.bind().as(({ day, month, year, hour, minute }) =>
+      Widget.Box({
+        vexpand: true,
+        vertical: true,
+        children: [
+          Widget.Label({ class_name: "bar__date", label: day }),
+          Widget.Label({ class_name: "bar__date", label: month }),
+          Widget.Label({ class_name: "bar__date", label: year }),
+          Widget.Label({
+            class_name: "bar__clock",
+            css: "margin-top: 12px;",
+            label: hour,
+          }),
+          Widget.Label({ class_name: "bar__clock", label: minute }),
+        ],
+      }),
+    ),
   });
 }
 
@@ -175,7 +223,8 @@ function getVolumeChildren(speaker) {
 function Volume() {
   return Widget.Button({
     on_primary_click: () => Utils.execAsync("pavucontrol"),
-    on_secondary_click: () => Utils.execAsync("pactl set-sink-mute @DEFAULT_SINK@ toggle"),
+    on_secondary_click: () =>
+      Utils.execAsync("pactl set-sink-mute @DEFAULT_SINK@ toggle"),
     child: Widget.Box({
       class_name: "volume",
       spacing: 4,
@@ -211,7 +260,7 @@ function SysTray() {
   const items = systemtray.bind("items").as((items) =>
     items.map((item) =>
       Widget.Button({
-        child: Widget.Icon({ icon: item.bind("icon"), size: 16 }),
+        child: Widget.Icon({ icon: item.bind("icon"), size: 18 }),
         css: "padding: 0",
         on_primary_click: (_, event) => item.activate(event),
         on_secondary_click: (_, event) => item.openMenu(event),
@@ -221,6 +270,7 @@ function SysTray() {
   );
 
   return Widget.Box({
+    vertical: true,
     spacing: 4,
     children: items,
   });
@@ -229,6 +279,7 @@ function SysTray() {
 // layout of the bar
 function Left() {
   return Widget.Box({
+    vertical: true,
     spacing: 8,
     children: [Workspaces()],
   });
@@ -236,16 +287,23 @@ function Left() {
 
 function Center() {
   return Widget.Box({
+    vertical: true,
     spacing: 8,
-    children: [ClientTitle()],
+    children: [],
   });
 }
 
 function Right() {
   return Widget.Box({
-    hpack: "end",
+    vpack: "end",
+    vertical: true,
     spacing: 8,
-    children: [SysTray(), Volume(), Clock(), Notifications()],
+    children: [
+      SysTray(),
+      // Volume(),
+      Time(),
+      // Notifications(),
+    ],
   });
 }
 
@@ -255,10 +313,10 @@ function Bar(monitor = 0) {
     class_name: "bar",
     monitor,
     // margins: [0, 4, 4, 4], // [TOP, RIGHT, BOTTOM, LEFT]
-    anchor: ["bottom", "left", "right"],
+    anchor: ["bottom", "top", "right"],
     exclusivity: "exclusive",
-    heightRequest: 28,
     child: Widget.CenterBox({
+      vertical: true,
       start_widget: Left(),
       center_widget: Center(),
       end_widget: Right(),
@@ -270,13 +328,7 @@ App.resetCss();
 
 App.config({
   style: "./style.css",
-  windows: [
-    Bar(),
-
-    // you can call it, for each monitor
-    // Bar(0),
-    // Bar(1)
-  ],
+  windows: [Bar()],
 });
 
 export {};

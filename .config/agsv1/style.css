@@ -1,109 +1,56 @@
-* {
-  font-family: "Inter", FontAwesome, "JetBrainsMonoNL Nerd Font", Roboto,
-    Helvetica, Arial, sans-serif;
-  font-size: 12px;
+.bar * {
+    padding: 0;
+    margin: 0;
+    font-family: "JetBrainsMonoNL Nerd Font", FontAwesome, Roboto,
+        Helvetica, Arial, sans-serif;
+    font-size: 18px;
+    font-weight: normal;
+    color: #E0E0E0;
+    border-radius: 0;
+    border: none;
+}
+
+.bar { 
+    /* background-image: */
+    /*     linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), */
+    /*     url("/home/daniels/dotfiles/wallpapers/josta2.png"); */
+    /* background-repeat: no-repeat;  */
+    /* background-position: center; */
+    /* background-size: cover; */
+    background: rgba(30, 30, 30, 0.90);
+}
+
+.bar__item {
+    margin: 4px 0;
+}
+
+.bar__ws_item {
+    border-right: 1px solid rgba(0, 0, 0, 0);
+    padding: 2px 0;
+}
+
+.bar__ws_item.focused {
+    border-right: 1px solid #E0E0E0;
+}
+
+.bar__time {
+  padding: 0 4px;
   font-weight: 400;
-  border: none;
-  outline: none;
-  color: #ebdbb2;
 }
 
-window.bar {
-  /* font-size: 16px; */
-  background-color: rgba(40, 40, 40, 0.9);
-  /* color: @theme_fg_color; */
-  /* height: 20px; */
-  /* padding-top: 40px; */
+.bar__date {
+  font-weight: 400;
+  opacity: 0.7;
 }
 
-window {
-  /* padding-top: 10px; */
+.bar__clock {
+  font-weight: 600;
 }
 
-.workspaces {
-  /* padding-left: 4px; */
-  /* padding-right: 40px; */
-  margin-left: 8px;
+window.bar.focused {
+    border-right: 1px solid #E0E0E0;
 }
 
-.notification-label-btn {
-  margin-right: 8px;
-}
-
-.notification-label-circle {
-  color: #db4b4b;
-}
-
-button {
-  padding: 0;
-  padding-left: 4px;
-  padding-right: 4px;
-  background-color: transparent;
-  border: none;
-  border-radius: 4;
-}
-
-.ws-label {
-  margin: 0;
-  padding: 0;
-  /* background-color: red; */
-  /* font-size: 16px; */
-  font-weight: bold;
-  font-size: 14px;
-
-  font-family: "JetBrainsMonoNL Nerd Font";
-}
-
-.ws-label-seperator {
-  /* margin-left: 4px; */
-  margin-right: -3px;
-  margin-left: -2px;
-  color: #665c54;
-}
-
-.ws-btn {
-  /* border: 1px solid #495075; */
-  /* border: 1px solid transparent; */
-  /* border-radius: 4px; */
-  padding-left: 4px;
-  padding-right: 4px;
-}
-
-.ws-btn.focused {
-  /* border: 1px solid #495075; */
-  background-color: #665c54;
-}
-
-.ws-btn.focused .ws-label-seperator {
-  color: #ebdbb2;
-}
-
-.ws-icon-box {
-  /* margin-left: 4px; */
-}
-
-/* button:active { */
-/*   background-color: @theme_selected_bg_color; */
-/* } */
-/**/
-/* button:hover { */
-/*   border-bottom: 3px solid @theme_fg_color; */
-/* } */
-
-label {
-  font-weight: bold;
-}
-
-.client-title {
-  /* color: @theme_selected_bg_color; */
-  color: #ebdbb2;
-}
-
-.notification {
-  color: yellow;
-}
-
-levelbar block,
-highlight {
-  min-height: 10px;
+window button {
+    background: none;
 }

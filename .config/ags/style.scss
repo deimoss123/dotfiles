@@ -1,20 +1,36 @@
-// https://gitlab.gnome.org/GNOME/gtk/-/blob/gtk-3-24/gtk/theme/Adwaita/_colors-public.scss
-$theme_fg_color: "@theme_fg_color";
-$theme_bg_color: "@theme_bg_color";
-
 window.Bar {
-    background: transparent;
-    color: #{$theme_bg_color};
-    font-weight: bold;
-
-    >centerbox {
-        background: #{$theme_bg_color};
-        /* border-radius: 10px; */
-        /* margin: 8px; */
+    * {
+        padding: 0;
+        margin: 0;
+        font-family: "JetBrainsMonoNL Nerd Font", FontAwesome, Roboto,
+            Helvetica, Arial, sans-serif;
+        font-size: 18px;
+        font-weight: normal;
+        color: #E0E0E0;
+        border-radius: 0;
+        border: none;
     }
 
+    & { 
+        background: rgba(30, 30, 30, 0.90);
+    }
+
+    .bar__item {
+        margin: 4px 0;
+    }
+
+    .bar__ws_item {
+        /* border-left: 1px solid #00000000; */
+        border-right: 1px solid #00000000;
+        padding: 2px 0;
+    }
+
+    .focused {
+        border-right: 1px solid #E0E0E0;
+    }
+
+
     button {
-        border-radius: 8px;
-        /* margin: 2px; */
+        background: none;
     }
 }

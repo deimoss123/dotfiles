@@ -1,0 +1,39 @@
+window.Bar {
+    * {
+        padding: 0;
+        margin: 0;
+        font-family: "Inter", FontAwesome, "JetBrainsMonoNL Nerd Font", Roboto,
+            Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        font-weight: bold;
+        color: #E0E0E0;
+        border-radius: 0;
+    }
+
+    & { 
+        background: rgba(30, 30, 30, 0.90);
+    }
+
+    .bar__item {
+        margin: 0 8px;
+    }
+
+    .bar__ws_item {
+        border-bottom: 1px solid #00000000;
+        border-top: 1px solid #00000000;
+        padding: 2px 0;
+    }
+
+    .focused {
+        border-bottom: 1px solid #E0E0E0;
+    }
+
+    >centerbox {
+        //
+    }
+
+    button {
+        background: none;
+    }
+}
+

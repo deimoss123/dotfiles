@@ -1,0 +1,48 @@
+.bar * {
+    padding: 0;
+    margin: 0;
+    font-family: Inter, "JetBrainsMonoNL Nerd Font", FontAwesome, Roboto,
+        Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+    color: #E0E0E0;
+    border-radius: 0;
+    border: none;
+}
+
+.bar { 
+    /* background-image: */
+    /*     linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), */
+    /*     url("/home/daniels/dotfiles/wallpapers/josta2.png"); */
+    /* background-repeat: no-repeat;  */
+    /* background-position: center; */
+    /* background-size: cover; */
+    background: rgba(30, 30, 30, 0.90);
+}
+
+.bar__item {
+    /* margin: 0 4px; */
+}
+
+.bar__ws_item {
+    border-bottom: 1px solid rgba(0, 0, 0, 0);
+    border-top: 1px solid rgba(0, 0, 0, 0);
+    padding: 4px 4px 0 4px;
+}
+
+.bar__ws_item.focused {
+    border-top: 1px solid rgba(0, 0, 0, 0);
+    border-bottom: 1px solid #E0E0E0;
+}
+
+.bar__date {
+  font-weight: 400;
+}
+
+.bar__clock {
+  font-weight: 600;
+}
+
+window button {
+    background: none;
+}

@@ -2,13 +2,10 @@
 
 case "$1" in
     "on")
-        # Kill any existing instances first
         pkill hyprsunset
-        # Start hyprsunset
-        hyprsunset &
+        exec hyprsunset
         ;;
     "off")
-        # Kill hyprsunset using pkill
         pkill hyprsunset
         ;;
     *)

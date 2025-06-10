@@ -1,26 +1,45 @@
 {
   "layer": "top", // Waybar at top layer
-  "position": "bottom", // Waybar position (top|bottom|left|right)
+  "position": "top", // Waybar position (top|bottom|left|right)
   // "height": 24, // Waybar height (to be removed for auto height)
-  "margin-bottom": 4, // Bottom margin
-  "margin-left": 4, // Bottom margin
-  "margin-right": 4, // Bottom margin
+  "margin-top": 0, // Bottom margin
+  "margin-left": 0, // Bottom margin
+  "margin-right": 0, // Bottom margin
   "spacing": 4, // Gaps between modules (4px)
   "output": ["DP-1"],
   // Choose the order of the modules
   "modules-left": ["hyprland/workspaces"],
   "modules-center": ["hyprland/window"],
-  "modules-right": ["cava", "tray", "pulseaudio", "clock", "custom/notification"],
+  "modules-right": [
+    // "cava",
+    "mpris",
+    "custom/separator",
+    "pulseaudio",
+    "custom/separator",
+    "tray",
+    "custom/separator",
+    "custom/notification",
+    "custom/separator",
+    "clock",
+  ],
   "hyprland/workspaces": {
     "all-outputs": true,
-    "format-icons": {},
-    "persistent_workspaces": {
-      "*": 9,
-    },
-    "format": "{icon}",
+    // "format-icons": {},
+    // "persistent_workspaces": {
+    //   "*": 9,
+    // },
+    "format": "{name} {windows}",
+    // "format-window-separator": "\n",
+    // "window-rewrite-default": "",
+    // "format-window-separator": "-",
     // "on-scroll-up": "hyprctl dispatch workspace e+1",
     // "on-scroll-down": "hyprctl dispatch workspace e-1",
   },
+"hyprland/window": {
+    "format": "{}",
+    // "icon": true,
+    // "separate-outputs": true
+},
   "keyboard-state": {
     "numlock": true,
     "capslock": true,
@@ -31,7 +50,7 @@
     },
   },
   "tray": {
-    "spacing": 10,
+    "spacing": 4,
   },
   "clock": {
     "format": "{:%d.%m.%Y  %H:%M}",
@@ -146,6 +165,9 @@
     "on-click-right": "swaync-client -d -sw",
     "escape": true,
   },
+  "custom/separator": {
+    "format": "|",
+  },
   "cava": {
     //        "cava_config": "$XDG_CONFIG_HOME/cava/cava.conf",
     "framerate": 60,
@@ -163,5 +185,32 @@
     "noise_reduction": 0.77,
     "input_delay": 2,
     "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"],
+  },
+  "mpris": {
+    "player": "spotify",
+    "format": "{player_icon} {artist} - {title}",
+    "format-paused": "{status_icon} {player_icon} {artist} - {title}",
+    "format-stopped": "",
+    "player-icons": {
+      "spotify": "",
+      "default": "▶",
+      "mpv": "🎵",
+    },
+    "status-icons": {
+      "paused": "⏸",
+    },
+    // "interval": 1,
+    // "ignored-players": ["firefox"]
+  },
+  "custom/media": {
+    "format": "{icon} {text}",
+    "return-type": "json",
+    "max-length": 40,
+    "format-icons": {
+      "default": "🎜",
+    },
+    "escape": true,
+    "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null", // Script in resources folder
+    // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
   },
 }

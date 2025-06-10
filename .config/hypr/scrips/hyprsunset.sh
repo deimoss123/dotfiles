@@ -2,11 +2,11 @@
 
 case "$1" in
     "on")
-        pkill hyprsunset
-        exec hyprsunset
+        pkill wlsunset
+        systemd-run --user wlsunset
         ;;
     "off")
-        pkill hyprsunset
+        pkill wlsunset
         ;;
     *)
         echo "Usage: $0 {on|off}"

@@ -309,23 +309,6 @@ require('lazy').setup {
       --  If you already have a Nerd Font, or terminal set up with fallback fonts
       --  you can enable this
       { 'nvim-tree/nvim-web-devicons' },
-      {
-        'nvim-treesitter/nvim-treesitter-context',
-        opts = {
-          enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
-          max_lines = 5, -- How many lines the window should span. Values <= 0 mean no limit.
-          min_window_height = 0, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
-          line_numbers = true,
-          multiline_threshold = 20, -- Maximum number of lines to show for a single context
-          trim_scope = 'outer', -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
-          mode = 'cursor', -- Line used to calculate context. Choices: 'cursor', 'topline'
-          -- Separator between context and content. Should be a single character string, like '-'.
-          -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
-          separator = nil,
-          zindex = 20, -- The Z-index of the context window
-          on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
-        },
-      },
     },
     config = function()
       require('telescope').setup {
@@ -567,7 +550,7 @@ require('lazy').setup {
         'eslint_d',
         'lua_ls',
         'prettierd',
-        'tsserver',
+        'ts_ls',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -597,24 +580,17 @@ require('lazy').setup {
       format_on_save = false,
       formatters_by_ft = {
         lua = { 'stylua' },
-        -- Conform can also run multiple formatters sequentially
-        -- python = { "isort", "black" },
-        --
-        -- You can use a sub-list to tell conform to run *until* a formatter
-        -- is found.
-
         go = { 'goimports', 'gofmt' },
-
-        astro = { { 'prettierd' } },
-        javascript = { { 'prettierd' } },
-        typescript = { { 'prettierd' } },
-        javascriptreact = { { 'prettierd' } },
-        typescriptreact = { { 'prettierd' } },
-        json = { { 'prettierd' } },
-        jsonc = { { 'prettierd' } },
-        html = { { 'prettierd' } },
-        css = { { 'prettierd' } },
-        svelte = { { 'prettierd' } },
+        astro = { 'prettierd' },
+        javascript = { 'prettierd' },
+        typescript = { 'prettierd' },
+        javascriptreact = { 'prettierd' },
+        typescriptreact = { 'prettierd' },
+        json = { 'prettierd' },
+        jsonc = { 'prettierd' },
+        html = { 'prettierd' },
+        css = { 'prettierd' },
+        svelte = { 'prettierd' },
         sql = { 'sqlfmt' },
       },
     },
@@ -713,21 +689,21 @@ require('lazy').setup {
     end,
   },
   {
-    "ellisonleao/gruvbox.nvim",
+    'ellisonleao/gruvbox.nvim',
     priority = 1000,
     config = true,
-    config = function () 
+    config = function()
       vim.g.tokyonight_dark_float = false
 
       -- Load the colorscheme here
 
       vim.cmd.hi 'Comment gui=none'
-      vim.o.background = "dark" -- or "light" for light mode
+      vim.o.background = 'dark' -- or "light" for light mode
       vim.cmd.colorscheme 'gruvbox'
     end,
   },
-  
-  -- { 
+
+  -- {
   --   'folke/tokyonight.nvim',
   --   lazy = false, -- make sure we load this during startup if it is your main colorscheme
   --   priority = 1000, -- make sure to load this before all the other start plugins
@@ -855,17 +831,17 @@ require('lazy').setup {
             'branch',
             -- {
             'diff',
-              -- diff_color = {
-              --   added = {
-              --     fg = colors.green,
-              --   },
-              --   modified = {
-              --     fg = colors.blue,
-              --   },
-              --   removed = {
-              --     fg = colors.red1,
-              --   },
-              -- },
+            -- diff_color = {
+            --   added = {
+            --     fg = colors.green,
+            --   },
+            --   modified = {
+            --     fg = colors.blue,
+            --   },
+            --   removed = {
+            --     fg = colors.red1,
+            --   },
+            -- },
             -- },
             'diagnostics',
             {
@@ -928,101 +904,6 @@ require('lazy').setup {
       --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
       --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
     end,
-  },
-  {
-    'zbirenbaum/copilot.lua',
-    event = 'VeryLazy',
-    config = function()
-      require('copilot').setup {
-        panel = {
-          enabled = true,
-          auto_refresh = false,
-          keymap = {
-            jump_prev = '[[',
-            jump_next = ']]',
-            accept = '<CR>',
-            refresh = 'gr',
-            open = '<C-c>',
-          },
-          layout = {
-            position = 'bottom', -- | top | left | right
-            ratio = 0.4,
-          },
-        },
-        suggestion = {
-          enabled = true,
-          auto_trigger = true,
-          debounce = 75,
-          keymap = {
-            accept = '<A-j>',
-            accept_word = false,
-            accept_line = false,
-            next = '<M-]>',
-            prev = '<M-[>',
-            dismiss = '<A-d>',
-          },
-        },
-        filetypes = {
-          yaml = false,
-          markdown = false,
-          help = false,
-          gitcommit = false,
-          gitrebase = false,
-          hgcommit = false,
-          svn = false,
-          cvs = false,
-          ['.'] = false,
-        },
-        copilot_node_command = 'node', -- Node.js version must be > 18.x
-        server_opts_overrides = {},
-      }
-    end,
-  },
-  {
-    'CopilotC-Nvim/CopilotChat.nvim',
-    opts = {
-      show_help = 'yes', -- Show help text for CopilotChatInPlace, default: yes
-      debug = false, -- Enable or disable debug mode, the log file will be in ~/.local/state/nvim/CopilotChat.nvim.log
-      disable_extra_info = 'no', -- Disable extra information (e.g: system prompt) in the response.
-      language = 'English', -- Copilot answer language settings when using default prompts. Default language is English.
-      -- proxy = "socks5://127.0.0.1:3000", -- Proxies requests via https or socks.
-      -- temperature = 0.1,
-    },
-    build = function()
-      vim.notify "Please update the remote plugins by running ':UpdateRemotePlugins', then restart Neovim."
-    end,
-    event = 'VeryLazy',
-    keys = {
-      { '<leader>ccb', ':CopilotChatBuffer ', desc = 'CopilotChat - Chat with current buffer' },
-      { '<leader>cce', '<cmd>CopilotChatExplain<cr>', desc = 'CopilotChat - Explain code' },
-      {
-        '<leader>ccT',
-        '<cmd>CopilotChatVsplitToggle<cr>',
-        desc = 'CopilotChat - Toggle Vsplit', -- Toggle vertical split
-      },
-      {
-        '<leader>ccv',
-        ':CopilotChatVisual ',
-        mode = 'x',
-        desc = 'CopilotChat - Open in vertical split',
-      },
-      {
-        '<leader>ccx',
-        ':CopilotChatInPlace<cr>',
-        mode = 'x',
-        desc = 'CopilotChat - Run in-place code',
-      },
-      {
-        '<leader>ccf',
-        '<cmd>CopilotChatFixDiagnostic<cr>', -- Get a fix for the diagnostic message under the cursor.
-        desc = 'CopilotChat - Fix diagnostic',
-      },
-      {
-        '<leader>ccr',
-        '<cmd>CopilotChatReset<cr>', -- Reset chat history and clear buffer.
-        desc = 'CopilotChat - Reset chat history and clear buffer',
-      },
-    },
   },
 
   -- {
@@ -1289,7 +1170,14 @@ require('lazy').setup {
       end)
     end,
   },
-
+  {
+    'fpeterek/nvim-surfers',
+    config = function()
+      require('nvim-surfers').setup {
+        use_tmux = true,
+      }
+    end,
+  },
   -- {
   --   '3rd/image.nvim',
   --   opts = {

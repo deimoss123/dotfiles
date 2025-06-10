@@ -271,7 +271,7 @@ function SysTray() {
 
   return Widget.Box({
     vertical: true,
-    spacing: 4,
+    spacing: 0,
     children: items,
   });
 }

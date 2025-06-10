@@ -1,12 +1,14 @@
 * {
-  font-family: "Inter", FontAwesome, "JetBrainsMonoNL Nerd Font", Roboto,
+  font-family: "Inter Variable", FontAwesome, "JetBrainsMonoNL Nerd Font", Roboto,
     Helvetica, Arial, sans-serif;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
 }
 
 window#waybar {
-  background: none;
+  background: rgba(40, 40, 40, 1);
+  /* border: 1px solid #8d7f71; */
+  /* border-radius: 8px; */
   /* background-color: #ff0000; */
 }
 
@@ -27,8 +29,8 @@ button {
 }
 
 #workspaces button {
-  padding: 0 2px;
-  color: #c0caf5;
+  padding: 2px 2px;
+  color: #E0E0E0;
 }
 
 #workspaces button.empty {
@@ -40,11 +42,11 @@ button {
 }
 
 #workspaces button.focused {
-  color: #7aa2f7;
+  color: #d79921;
 }
 
 #workspaces button.active {
-  color: #7aa2f7;
+  color: #d79921;
 }
 
 #clock,
@@ -66,20 +68,28 @@ button {
 #window,
 #custom-notification,
 #mpd {
-  padding-left: 24px;
-  color: #c0caf5;
+  padding-left: 2px;
+  padding-right: 2px;
+  color: #E0E0E0;
   background-color: #1a1b26;
   background: none;
 }
 
+#custom-separator {
+  color: #665c54;
+  padding-left: 2px;
+  padding-right: 2px;
+
+}
+
 /* If workspaces is the leftmost module, omit left margin */
 .modules-left > widget:first-child > #workspaces {
-  /* margin-left: 6px; */
+  margin-left: 4px;
 }
 
 /* If workspaces is the rightmost module, omit right margin */
 .modules-right > widget:last-child > * {
-  margin-right: 6px;
+  margin-right: 8px;
 }
 
 #tray > .passive {
